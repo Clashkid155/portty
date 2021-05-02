@@ -30,6 +30,7 @@ class _PorttyState extends State<Portty> {
   final String flut = 'image/flut.png';
   bool check = false;
   bool _visible = true;
+  var i = 0;
 
   @override
   void initState() {
@@ -43,31 +44,21 @@ class _PorttyState extends State<Portty> {
 
   @override
   Widget build(BuildContext context) {
-    Color random() {
-      var x = [
-        Colors.red,
-        Colors.blue,
-        Colors.green,
-        Colors.orange,
-        Colors.yellow,
-        Colors.purple,
-      ];
-      int i = 0;
-      do {
-        if (i == 5) {
-          i = 0;
-        }
+    var x = [
+      Colors.red,
+      Colors.blue,
+      Colors.green,
+      Colors.orange,
+      Colors.yellow,
+      Colors.purple,
+    ];
+    Future.delayed(Duration(seconds: 8), () {
+      print(i);
 
-        i++;
-        print(i);
-        Future.delayed(const Duration(seconds: 5), () {
-          setState(() {});
-        });
-        return x[i];
-      } while (true);
-
-      //return x[5];
-    }
+      setState(() {
+        i >= 5 ? i = 0 : i++;
+      });
+    });
 
     Size mid = MediaQuery.of(context).size;
     return SafeArea(
@@ -86,7 +77,7 @@ class _PorttyState extends State<Portty> {
                     decoration:
                         BoxDecoration(shape: BoxShape.circle, boxShadow: [
                       BoxShadow(
-                        color: random(),
+                        color: x[i],
                         spreadRadius: 5,
                         blurRadius: 7,
                         offset: Offset(0, 2),
@@ -107,8 +98,8 @@ class _PorttyState extends State<Portty> {
                 child: AnimatedPositioned(
                   curve: Curves.easeInOut,
                   duration: Duration(seconds: 4),
-                  top: mid.width * 0.35, //168,
-                  right: mid.width * 0.07,
+                  top: mid.width * 0.45, //168,
+                  right: mid.width * 0.01,
                   child: Text('Tap image to change'),
                 ),
               ),
